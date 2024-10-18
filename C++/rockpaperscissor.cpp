@@ -5,9 +5,10 @@
 using namespace std;
 
 class Player {
+  // only works on c++11 and later
   public:
-    int rounds_won = 0g
-g   int picks[3] = {0, 0, 0}; // 0 = sten, 1 = sax, 2 = påse
+    int rounds_won = 0;
+    int picks[3] = {0, 0, 0}; // 0 = sten, 1 = sax, 2 = påse
     void restoreRoundsWon(int rounds);
     int pick(bool random);
 };
@@ -49,6 +50,7 @@ int Player::pick(bool random = false) {
 };
 
 class Game {
+  // only works on c++11 and later
   public:
     bool verbose = false;                                 // enable/disable simple verbose mode
     void printMenu();                                     // print out the menu
