@@ -56,7 +56,7 @@ class Game {
     void printMenu();                                     // print out the menu
     void printScore(Player& user, Player& computer);      // print out rounds won between two Players
     void printStatistics(Player& user, Player& computer); // print out statistics from current session
-    int getChoice();                                      // get menu choices
+    int getChoice();                                      // get choices from input range 1-3
     void comparePicks(int user_pick, Player& user, int computer_pick, Player& computer); // compare picks of two Players
     void startGame(Player& user, Player& computer, int rounds);                          // start game of rock paper scissors
     void run();                                           // run game
@@ -121,29 +121,12 @@ int Game::getChoice() {
 }
 
 void Game::comparePicks(int user_pick, Player& user, int computer_pick, Player& computer) {
-  if (user_pick == 0) {
-    if (computer_pick == 1) {
-      user.rounds_won++;
-    }
-    if (computer_pick == 2) {
-      computer.rounds_won++;
-    }
-
-  } else if (user_pick == 1) {
-    if (computer_pick == 0) {
-      computer.rounds_won++;
-    }
-    if (computer_pick == 2) {
-      user.rounds_won++;
-    }
-
-  } else if (user_pick == 2) {
-    if (computer_pick == 0) {
-      user.rounds_won++;
-    }
-    if (computer_pick == 1) {
-      computer.rounds_won++;
-    }
+  if (user_pick == 0 && computer_pick == 1 ||
+      user_pick == 1 && computer_pick == 2 ||
+      user_pick == 2 && computer_pick == 0) {
+    user.rounds_won++;
+  } else {
+    computer.rounds_won++;
   }
 };
 
