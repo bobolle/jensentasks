@@ -8,7 +8,7 @@ class Player {
   // only works on c++11 and later
   public:
     int rounds_won = 0;
-    int picks[3] = {0, 0, 0}; // 0 = sten, 1 = sax, 2 = påse
+    int picks[3] = {0, 0, 0}; // 0 = ROCK, 1 = PAPER, 2 = SCISSOR
     void restoreRoundsWon(int rounds);
     int pick(bool random);
 };
@@ -18,7 +18,7 @@ void Player::restoreRoundsWon(int rounds = 3) {
 };
 
 int Player::pick(bool random = false) {
-  string picks[3] = {"sten", "sax", "påse"};
+  string picks[3] = {"ROCK", "PAPER", "SCISSOR"};
   string s;
 
   if (random) {
@@ -28,13 +28,13 @@ int Player::pick(bool random = false) {
   }
 
   do {
-    cout << "Välj! (Sten, Sax, Påse): ";
+    cout << "Pick one! (Rock, Paper, Scissor): ";
     cin >> s;
 
-    // transform to lowercase
+    // transform to uppercase
     for (int i = 0; i < s.length(); i++) {
-      if (isupper(s[i])) {
-        s[i] = tolower(s[i]);
+      if (islower(s[i])) {
+        s[i] = toupper(s[i]);
       }
     }
 
@@ -56,7 +56,7 @@ class Game {
     void printMenu();                                     // print out the menu
     void printScore(Player& user, Player& computer);      // print out rounds won between two Players
     void printStatistics(Player& user, Player& computer); // print out statistics from current session
-    int getChoice();                                      // get choices from input range 1-3
+    int getChoice(int n, int m);                                      // get choices from input range 1-3
     void comparePicks(int user_pick, Player& user, int computer_pick, Player& computer); // compare picks of two Players
     void startGame(Player& user, Player& computer, int rounds);                          // start game of rock paper scissors
     void run();                                           // run game
@@ -67,14 +67,15 @@ class Game {
 };
 
 void Game::printMenu() {
-  cout << "###################" << endl;
-  cout << "## STEN SAX PÅSE ##" << endl;
-  cout << "###################" << endl;
+  cout << "########################" << endl;
+  cout << "## ROCK PAPER SCISSOR ##" << endl;
+  cout << "########################" << endl;
   cout << endl;
-  cout << "Välj ett alternativ: " << endl;
-  cout << "(1) Starta spel, (2) Visa statistik, (3) Avsluta" << endl;
-  cout << "------------------------------------------------" << endl;
+  cout << "-------------------------------------------------" << endl;
+  cout << "- (1) Start Game, (2) Show Statistics, (3) Quit -" << endl;
+  cout << "-------------------------------------------------" << endl;
   cout << endl;
+  cout << "Enter choice: ";
 }
 
 void Game::printScore(Player& user, Player& computer) {
@@ -90,24 +91,24 @@ void Game::printStatistics(Player& user, Player& computer) {
   cout << endl;
 
   cout << "USER PICKS HISTORY: " << endl;
-  cout << "STEN: " << user.picks[0] << endl;
-  cout << "SAX: " << user.picks[1] << endl;
-  cout << "PÅSE: " << user.picks[2] << endl;
+  cout << "ROCK: " << user.picks[0] << endl;
+  cout << "PAPPER: " << user.picks[1] << endl;
+  cout << "SCISSOR: " << user.picks[2] << endl;
   cout << endl;
 
   cout << "COMPUTER PICKS HISTORY: " << endl;
-  cout << "STEN: " << computer.picks[0] << endl;
-  cout << "SAX: " << computer.picks[1] << endl;
-  cout << "PÅSE: " << computer.picks[2] << endl;
+  cout << "ROCK: " << computer.picks[0] << endl;
+  cout << "PAPER: " << computer.picks[1] << endl;
+  cout << "SCISSOR: " << computer.picks[2] << endl;
   cout << endl;
 };
 
-int Game::getChoice() {
+int Game::getChoice(int n, int m) {
   int c;
   do {
     cin >> c;
-    if (c < 1 || c > 3) {
-      cout << "Ogiltligt val, försök igen." << endl;
+    if (c < n || c > m) {
+      cout << "Invalid input, try again." << endl;
       cin.clear();
       cin.ignore(1000, '\n');
       if (this->verbose) {
@@ -115,15 +116,16 @@ int Game::getChoice() {
       }
       this->printMenu();
     } 
-  } while (c < 1 || c > 3);
+  } while (c < n || c > m);
 
   return c;
 }
 
-void Game::comparePicks(int user_pick, Player& user, int computer_pick, Player& computer) {
-  if (user_pick == 0 && computer_pick == 1 ||
-      user_pick == 1 && computer_pick == 2 ||
-      user_pick == 2 && computer_pick == 0) {
+// 0 ROCK 1 PAPER 2 SCISSOR
+void Game::comparePicks(const int user_pick, Player& user, const int computer_pick, Player& computer) {
+  if (user_pick == 0 && computer_pick == 2 ||
+      user_pick == 1 && computer_pick == 0 ||
+      user_pick == 2 && computer_pick == 1) {
     user.rounds_won++;
   } else {
     computer.rounds_won++;
@@ -131,26 +133,31 @@ void Game::comparePicks(int user_pick, Player& user, int computer_pick, Player& 
 };
 
 void Game::startGame(Player& user, Player& computer, int rounds = 3) {
-  string picks[3] = {"Sten", "Sax", "Påse"}; // for cleaner printing
+  string picks[3] = {"Rock", "Paper", "Scissor"}; // for cleaner printing
   int user_pick;
   int computer_pick;
   int round_count = 1;
 
+  cout << "------------------------------" << endl;
+  cout << "- Starting game of " << rounds << " rounds! -" << endl;
+  cout << "------------------------------" << endl;
+  cout << endl;
+
   do {
-    cout << "##########" << endl;
-    cout << "# ROUND " << round_count << "#" << endl;
-    cout << "##########" << endl;
+    cout << "###########" << endl;
+    cout << "# ROUND " << round_count << " #" << endl;
+    cout << "###########" << endl;
     cout << endl;
 
     user_pick = user.pick();
     computer_pick = computer.pick(true);
 
-    cout << "User pick: " << picks[user_pick] << endl;
-    cout << "Computer pick: " << picks[computer_pick] << endl;
+    cout << "User picks: " << picks[user_pick] << "!" << endl;
+    cout << "Computer picks: " << picks[computer_pick] << "!" << endl;
     cout << endl;
 
     if (user_pick == computer_pick) {
-      cout << "Lika! Kör igen!" << endl;
+      cout << "Draw! Go again!" << endl;
       if (this->verbose) {
         cout << "user_pick: " << user_pick << ", computer_pick: " << computer_pick << endl;
       }
@@ -167,15 +174,19 @@ void Game::startGame(Player& user, Player& computer, int rounds = 3) {
 
 void Game::run() {
   int choice;
+  int rounds;
   Player user;
   Player computer;
 
   do {
     this->printMenu();
-    choice = this->getChoice();
+    choice = this->getChoice(1, 3);
 
     if (choice == 1) {
-      this->startGame(user, computer);
+      cout << "Enter amount of rounds: ";
+      rounds = this->getChoice(1, 20);
+      cout << endl;
+      this->startGame(user, computer, rounds);
     }
 
     if (choice == 2) {
