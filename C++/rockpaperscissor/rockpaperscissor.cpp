@@ -200,11 +200,11 @@ int main(int argc, char **argv) {
   bool verbose = false;
 
   if (argc > 1) {
-    string v = argv[1];
-    if (v == "-v") {
+    string f = argv[1];
+    if (f == "-v") {
       verbose = true;
     } else {
-      cout << "Unknown flag: " << v << endl;
+      cout << "Unknown flag: " << f << endl;
       return 0;
     }
   }
