@@ -102,6 +102,7 @@ void Game::printStatistics(Player& user, Player& computer) {
   cout << endl;
 };
 
+// int range n to m
 int Game::getChoice(int n, int m, string prompt) {
   int c;
   cout << prompt;
@@ -143,6 +144,7 @@ void Game::startGame(Player& user, Player& computer, int rounds = 3) {
   cout << "------------------------------" << endl;
   cout << endl;
 
+  // round loop
   do {
     cout << "###########" << endl;
     cout << "# ROUND " << round_count << " #" << endl;
@@ -178,6 +180,7 @@ void Game::run() {
   Player user;
   Player computer;
 
+  // menu loop
   do {
     this->printMenu();
     choice = this->getChoice(1, 3, "Enter choice: ");
