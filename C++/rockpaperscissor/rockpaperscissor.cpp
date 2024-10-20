@@ -202,8 +202,10 @@ int main(int argc, char **argv) {
   if (argc > 1) {
     string v = argv[1];
     if (v == "-v") {
-      cout << "verbose: true" << endl;
       verbose = true;
+    } else {
+      cout << "Unknown flag: " << v << endl;
+      return 0;
     }
   }
 
