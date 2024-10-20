@@ -56,7 +56,7 @@ class Game {
     void printMenu();                                     // print out the menu
     void printScore(Player& user, Player& computer);      // print out rounds won between two Players
     void printStatistics(Player& user, Player& computer); // print out statistics from current session
-    int getChoice(int n, int m);                                      // get choices from input range 1-3
+    int getChoice(int n, int m, string prompt);                                      // get choices from input range 1-3
     void comparePicks(int user_pick, Player& user, int computer_pick, Player& computer); // compare picks of two Players
     void startGame(Player& user, Player& computer, int rounds);                          // start game of rock paper scissors
     void run();                                           // run game
@@ -75,7 +75,6 @@ void Game::printMenu() {
   cout << "- (1) Start Game, (2) Show Statistics, (3) Quit -" << endl;
   cout << "-------------------------------------------------" << endl;
   cout << endl;
-  cout << "Enter choice: ";
 }
 
 void Game::printScore(Player& user, Player& computer) {
@@ -103,8 +102,9 @@ void Game::printStatistics(Player& user, Player& computer) {
   cout << endl;
 };
 
-int Game::getChoice(int n, int m) {
+int Game::getChoice(int n, int m, string prompt) {
   int c;
+  cout << prompt;
   do {
     cin >> c;
     if (c < n || c > m) {
@@ -114,7 +114,7 @@ int Game::getChoice(int n, int m) {
       if (this->verbose) {
         cout << "int c: " << c << endl;
       }
-      this->printMenu();
+      cout << prompt;
     } 
   } while (c < n || c > m);
 
@@ -180,11 +180,10 @@ void Game::run() {
 
   do {
     this->printMenu();
-    choice = this->getChoice(1, 3);
+    choice = this->getChoice(1, 3, "Enter choice: ");
 
     if (choice == 1) {
-      cout << "Enter amount of rounds: ";
-      rounds = this->getChoice(1, 20);
+      rounds = this->getChoice(1, 20, "Enter amount of rounds(1-20): ");
       cout << endl;
       this->startGame(user, computer, rounds);
     }
@@ -200,8 +199,12 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   bool verbose = false;
 
-  if (argc > 1 && argv[1][1] == 'v') {
-    verbose = true;
+  if (argc > 1) {
+    string v = argv[1];
+    if (v == "-v") {
+      cout << "verbose: true" << endl;
+      verbose = true;
+    }
   }
 
   Game Game(verbose);
