@@ -9,16 +9,16 @@ class Player {
   public:
     int rounds_won = 0;
     int picks[3] = {0, 0, 0}; // 0 = ROCK, 1 = PAPER, 2 = SCISSOR
-    void restoreRoundsWon(int rounds);
-    int pick(bool random);
+    void restoreRoundsWon(const int rounds);
+    int pick(const bool random);
 };
 
-void Player::restoreRoundsWon(int rounds = 3) {
+void Player::restoreRoundsWon(const int rounds = 3) {
   this->rounds_won = rounds;
 };
 
-int Player::pick(bool random = false) {
-  string picks[3] = {"ROCK", "PAPER", "SCISSOR"};
+int Player::pick(const bool random = false) {
+  const string picks[3] = {"ROCK", "PAPER", "SCISSOR"};
   string s;
 
   if (random) {
@@ -52,14 +52,14 @@ int Player::pick(bool random = false) {
 class Game {
   // only works on c++11 and later
   public:
-    bool verbose = false;                                 // enable/disable simple verbose mode
-    void printMenu();                                     // print out the menu
-    void printScore(Player& user, Player& computer);      // print out rounds won between two Players
+    bool verbose = false; // enable/disable simple verbose mode
+    void printMenu(); // print out the menu
+    void printScore(Player& user, Player& computer); // print out rounds won between two Players
     void printStatistics(Player& user, Player& computer); // print out statistics from current session
-    int getChoice(int n, int m, string prompt);                                      // get choices from input range 1-3
-    void comparePicks(int user_pick, Player& user, int computer_pick, Player& computer); // compare picks of two Players
-    void startGame(Player& user, Player& computer, int rounds);                          // start game of rock paper scissors
-    void run();                                           // run game
+    int getChoice(const int n, const int m, const string prompt); // get choices from input range 1-3
+    void comparePicks(const int user_pick, Player& user, const int computer_pick, Player& computer); // compare picks of two Players
+    void startGame(Player& user, Player& computer, const int rounds); // start game of rock paper scissors
+    void run(); // run game
 
     Game(bool verbose) {
       this->verbose = verbose;
@@ -103,7 +103,7 @@ void Game::printStatistics(Player& user, Player& computer) {
 };
 
 // int range n to m
-int Game::getChoice(int n, int m, string prompt) {
+int Game::getChoice(const int n, const int m, const string prompt) {
   int c;
   cout << prompt;
   do {
@@ -133,7 +133,7 @@ void Game::comparePicks(const int user_pick, Player& user, const int computer_pi
   }
 };
 
-void Game::startGame(Player& user, Player& computer, int rounds = 3) {
+void Game::startGame(Player& user, Player& computer, const int rounds = 3) {
   string picks[3] = {"Rock", "Paper", "Scissor"}; // for cleaner printing
   int user_pick;
   int computer_pick;
