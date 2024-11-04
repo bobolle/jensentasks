@@ -3,6 +3,21 @@
 // 7. Smart Pointer
 class SmartPointer {
     int *ptr;
+  public:
+    // spara riktiga pointern
+    SmartPointer(int *ptr) {
+      this->ptr = ptr;
+    }
+    // automatisk deallocering av riktiga pointern
+    ~SmartPointer() {
+      delete (this->ptr);
+    }
+
+    // operatorn * 
+    int& operator*() {
+      return *this->ptr;
+    }
+
 };
 
 void f1();
@@ -16,12 +31,16 @@ int main() {
 
   p = &b;
 
-  std::cout << "Värdet på pekaren p: " << *p;
+  std::cout << "Värdet på pekaren p: " << *p << std::endl;
 
 
   int *p2;
   // p2 blir en dinglande pekare
-  p2 = f3();
+  //p2 = f3();
+
+  SmartPointer sp(new int());
+  *sp = 20;
+  std::cout << *sp;
 
   return 0;
 }
