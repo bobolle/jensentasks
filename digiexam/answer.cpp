@@ -1,8 +1,13 @@
 #include <iostream>
 
+// 7. Smart Pointer
+class SmartPointer {
+    int *ptr;
+};
+
 void f1();
 void f2();
-int f3();
+int *f3();
 
 int main() {
   int *p;
@@ -39,8 +44,9 @@ void f2() {
 }
 
 // 3. Dangling pointer
-int f3() {
+int *f3() {
   // a finns inte i minne efter exec av funktionen
   int a = 10;
   return &a;
 }
+
