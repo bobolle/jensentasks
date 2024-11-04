@@ -8,7 +8,7 @@ class SmartPointer {
     SmartPointer(int *ptr) {
       this->ptr = ptr;
     }
-    // automatisk deallocering av riktiga pointern
+    // automatisk deallokering av riktiga pointern
     ~SmartPointer() {
       delete (this->ptr);
     }
@@ -17,7 +17,6 @@ class SmartPointer {
     int& operator*() {
       return *this->ptr;
     }
-
 };
 
 void f1();
