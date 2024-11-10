@@ -26,7 +26,7 @@ class Book : public Item {
     }
 };
 
-class Magazine : Item {
+class Magazine : public Item {
   private:
     int _issue;
   public:
@@ -93,6 +93,7 @@ Library::~Library() {
     this->_users.erase(this->_users.begin() + i);
   }
 }
+
 void Library::add_item(Item *item) {
   this->_items.push_back(item);
 }
