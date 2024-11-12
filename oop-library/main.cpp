@@ -26,7 +26,7 @@ class Book : public Item {
     }
 };
 
-class Magazine : Item {
+class Magazine : public Item {
   private:
     int _issue;
   public:
@@ -56,7 +56,7 @@ void LibraryUser::borrow(Item *item) {
 }
 
 void LibraryUser::return_item(Item *item) {
-  for (int i = 0; i < this->_borrowed_items.size(); i++) {
+  for (long unsigned int i = 0; i < this->_borrowed_items.size(); i++) {
     if (item == this->_borrowed_items[i]) {
       this->_borrowed_items.erase(this->_borrowed_items.begin() + i);
     }
@@ -64,7 +64,7 @@ void LibraryUser::return_item(Item *item) {
 }
 
 void LibraryUser::list_borrowed_items() {
-  for (int i = 0; i < this->_borrowed_items.size(); i++) {
+  for (long unsigned int i = 0; i < this->_borrowed_items.size(); i++) {
     std::cout << this->_borrowed_items[i] << std::endl;
   }
 }
@@ -85,20 +85,21 @@ class Library {
 };
 
 Library::~Library() {
-  for (int i = 0; i < this->_items.size(); i++) {
+  for (long unsigned int i = 0; i < this->_items.size(); i++) {
     this->_items.erase(this->_items.begin() + i);
   }
 
-  for (int i = 0; i < this->_users.size(); i++) {
+  for (long unsigned int i = 0; i < this->_users.size(); i++) {
     this->_users.erase(this->_users.begin() + i);
   }
 }
+
 void Library::add_item(Item *item) {
   this->_items.push_back(item);
 }
 
 void Library::remove_item(Item *item) {
-  for (int i = 0; i < this->_items.size(); i++) {
+  for (long unsigned int i = 0; i < this->_items.size(); i++) {
     if (item == this->_items[i]) {
       this->_items.erase(this->_items.begin() + i);
       break;
@@ -119,7 +120,7 @@ void Library::return_item(LibraryUser *user, Item *item) {
 }
 
 void Library::list_items() {
-  for (int i = 0; i < this->_items.size(); i++) {
+  for (long unsigned int i = 0; i < this->_items.size(); i++) {
     this->_items[i]->display_info();
   }
 }
