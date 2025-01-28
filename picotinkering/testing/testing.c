@@ -9,7 +9,7 @@ int main() {
     setupPins(triggerPin, echoPin);
 
     while (1) {
-        printf("%d\n", getPulse(triggerPin, echoPin));
+        printf("Distance in cm: %d\n", getCM(triggerPin, echoPin));
         sleep_ms(1000);
     }
 }

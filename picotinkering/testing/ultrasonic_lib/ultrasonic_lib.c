@@ -37,3 +37,8 @@ uint64_t getPulse(uint triggerPin, uint echoPin) {
     return absolute_time_diff_us(startTime, endTime);
 
 }
+
+int getCM(uint triggerPin, uint echoPin) {
+    uint64_t pulseLength = getPulse(triggerPin, echoPin);
+    return pulseLength / 29 / 2;
+}
