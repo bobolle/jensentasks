@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
 
-add_subdirectory(pico_ultrasonic_lib)
+add_subdirectory(ultrasonic_lib)
 
 add_executable(testing
     testing.c
